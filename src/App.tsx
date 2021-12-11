@@ -1,6 +1,7 @@
 import type { Component } from "solid-js";
-import { createSignal, createEffect, Show, For, Switch, Match, ErrorBoundary, onMount, onCleanup, batch, untrack, on, lazy } from 'solid-js';
-import TestComponent from './components/Test'
+import { createSignal, createEffect, Show, For, Switch, Match, ErrorBoundary, onMount, onCleanup, batch, untrack, on, lazy, Suspense } from 'solid-js';
+import TestComponent from './components/Test';
+import ResourceComponent from './components/Resources';
 
 // see in network tab
 const LazyComponent = lazy(async () => {
@@ -71,7 +72,9 @@ const App: Component = () => {
         Hello Tailwind3.0 with Solid.js
       </div>
       <hr />
-      <LazyComponent />
+      <Suspense fallback={'loading chunk ....'}>
+        <LazyComponent />
+      </Suspense>
       <hr />
       {`current => ${count()}, 2x => ${doubleCount()}`}
       <br />
@@ -117,7 +120,8 @@ const App: Component = () => {
           setCount4(p => p + 1)
         })
       }}>both</button>
-
+      <hr />
+      <ResourceComponent />
     </div >
   );
 };
